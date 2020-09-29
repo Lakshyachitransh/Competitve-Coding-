@@ -1,28 +1,36 @@
 package com.company;
 
-import static com.company.Sliding_window.sliding_window;
-
+import java.util.ArrayList;
 public class Main {
-    public static int Max_subarray_sum(int [] a,int k){
-        int start_window=0;
-        int sum=0;
-        int min=Integer.MAX_VALUE;
-        for (int end_window=0;end_window<a.length;end_window++){
-            sum+=a[end_window];
-            if (sum>=k && end_window-start_window+1<min){
-                min=Math.abs(start_window-end_window+1);
-                sum-=a[start_window];
-                start_window++;
+    public static ArrayList pair(int[] a,int sum) {
+        ArrayList<Integer> subset = new ArrayList<>();
+        int n = a.length;
+        int start = 0;
+        int end = n - 1;
+        for (int i = 0; i < n; i++) {
+            if (a[start] + a[end] < sum) {
+                start++;
+            } else if (a[start] + a[end] > sum) {
+                end--;
+            } else {
+
+                subset.add(start);
+                subset.add(end);
+                break;
             }
         }
-        return min;
-    }
+            return subset;
+        }
+
 
     public static void main(String[] args) {
 	// write your code here
-       int [] a={2,1,5,2,8};
-       int k=8;
-       int max=Max_subarray_sum(a,k);
-        System.out.println(max);
+        int[] a={2,5,9,11};
+        int sum=11;
+        ArrayList<Integer> subset =new ArrayList<>();
+        subset=pair(a,sum);
+        System.out.println(subset);
     }
+
+
 }
